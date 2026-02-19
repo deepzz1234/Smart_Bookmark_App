@@ -9,7 +9,7 @@ export default function Login() {
       provider: "google",
       options: {
         // redirectTo: "http://localhost:3000/dashboard",
-        redirectTo:`${location.origin}/dashboard`
+         redirectTo: `${location.origin}/dashboard`,
       },
     });
   };
