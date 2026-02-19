@@ -9,7 +9,7 @@ export default function Login() {
       provider: "google",
       options: {
         // redirectTo: "http://localhost:3000/dashboard",
-        redirectTo:"https://smart-bookmark-app-five-woad.vercel.app/dashboard"
+        redirectTo:`${location.origin}/dashboard`
       },
     });
   };
