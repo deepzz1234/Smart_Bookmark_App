@@ -1,0 +1,438 @@
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* make utilities available to @apply */
+@reference "tailwindcss";
+
+/* Theme */
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* 👇 put custom classes inside a layer */
+@layer components {
+
+  /* 🌌 MAIN HERO */
+  .hero {
+    @apply min-h-screen flex flex-col lg:flex-row items-center justify-center
+           px-6 lg:px-24 gap-20 relative overflow-hidden text-white;
+
+    background: radial-gradient(circle at 20% 30%, #6366f1 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, #ec4899 0%, transparent 40%),
+                #0f172a;
+  }
+
+  /* ✨ GRID OVERLAY */
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(circle at center, black, transparent 80%);
+  }
+
+  /* 🧱 LEFT CONTENT ALIGNMENT */
+  .hero-left {
+    @apply max-w-xl flex flex-col space-y-6 z-10;
+  }
+
+  /* 🏷 BADGE */
+  .hero-badge {
+    @apply w-fit px-4 py-1 rounded-full text-sm font-medium
+           bg-white/10 border border-white/20 backdrop-blur-md;
+  }
+
+  /* 🧠 TITLE */
+  .hero-title {
+    @apply text-5xl md:text-6xl font-extrabold leading-tight;
+    background: linear-gradient(to right,#fff,#a5b4fc,#f9a8d4,#fff);
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  /* ✨ FEATURE POINTS (REPLACES PARAGRAPH) */
+  .hero-subtitle {
+    @apply grid grid-cols-1 sm:grid-cols-2 gap-3 text-white/80 text-lg;
+  }
+
+  .hero-subtitle div {
+    @apply flex items-center gap-2 bg-white/5 px-4 py-2
+           rounded-lg border border-white/10 backdrop-blur-md
+           transition duration-300;
+  }
+
+  .hero-subtitle div:hover {
+    @apply bg-white/10 scale-105;
+  }
+
+  /* 🚀 BUTTON GROUP */
+  .hero-btn-group {
+    @apply flex flex-col sm:flex-row gap-4 pt-4;
+  }
+
+  /* 🔥 PRIMARY BUTTON */
+ .signin-btn {
+  @apply px-6 py-3 rounded-xl font-semibold relative overflow-hidden
+         text-white cursor-pointer;
+  background: linear-gradient(90deg,#6366f1,#a855f7);
+}
+
+.signin-btn:hover {
+  transform: scale(1.07);
+  box-shadow: 0 0 25px #a855f7;
+}
+
+
+  /* 🧊 SECONDARY BUTTON */
+  .signup-btn {
+  @apply px-6 py-3 rounded-xl font-semibold border border-white/20
+         bg-white/5 backdrop-blur-xl
+         transition duration-300
+         cursor-pointer;
+}
+
+.signup-btn:hover {
+  @apply bg-white/10 scale-105;
+}
+
+
+  /* 🖼 HERO PREVIEW */
+  .hero-preview {
+    @apply relative flex justify-center items-center z-10;
+  }
+
+  .hero-preview::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle,#6366f1,transparent 70%);
+    filter: blur(120px);
+    opacity: 0.6;
+  }
+
+ 
+
+/* 📱 FLOATING MOCKUP */
+.app-mockup {
+  @apply relative w-[280px] md:w-[360px] lg:w-[460px]
+         rounded-3xl border border-white/10
+         shadow-[0_40px_100px_rgba(0,0,0,0.7)]
+         transition duration-500 cursor-pointer;
+
+  transform: perspective(1200px) rotateY(-10deg) rotateX(5deg);
+  animation: float 6s ease-in-out infinite;
+}
+
+.app-mockup:hover {
+  transform: perspective(1200px) rotateY(0) rotateX(0) scale(1.08);
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0) rotateY(-10deg) rotateX(5deg); }
+  50% { transform: translateY(-22px) rotateY(-10deg) rotateX(5deg); }
+}
+
+
+/* 🌈 MAIN LOGIN BACKGROUND */
+.login-main {
+  @apply min-h-screen flex items-center justify-center px-6 relative overflow-hidden;
+  background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+  background-size: 200% 200%;
+  animation: gradientMove 14s ease infinite;
+}
+
+/* FLOATING BLOBS */
+.login-main::before,
+.login-main::after {
+  content: "";
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 999px;
+  filter: blur(140px);
+  pointer-events: none;   /* ✅ FIX CLICK ISSUE */
+  z-index: 0;
+}
+
+.login-main::before {
+  background: rgba(255,255,255,0.25);
+  top: -120px;
+  left: -120px;
+}
+
+.login-main::after {
+  background: rgba(168,85,247,0.35);
+  bottom: -140px;
+  right: -100px;
+}
+
+
+/* 💎 GLASS LOGIN CARD */
+.login-card {
+  @apply w-full max-w-md p-10 text-center
+         rounded-[28px] bg-white/10 backdrop-blur-2xl
+         border border-white/20
+         shadow-[0_25px_70px_rgba(0,0,0,0.5)]
+         space-y-6 animate-[fadeUp_.6s_ease];
+
+  position: relative;
+  z-index: 20;   /* ✅ ABOVE BACKGROUND */
+}
+
+/* LIGHT REFLECTION */
+.login-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.35), transparent);
+  opacity: 0;
+  transition: .6s;
+}
+
+.login-card:hover::before {
+  opacity: 1;
+}
+
+
+/* LOGO */
+.login-logo {
+  @apply w-16 mx-auto drop-shadow-[0_10px_25px_rgba(0,0,0,0.4)];
+}
+
+/* TITLE */
+.login-title {
+  @apply text-3xl font-extrabold bg-clip-text text-transparent;
+  background-image: linear-gradient(to right, #ffffff, #e5e7eb);
+}
+
+/* SUBTITLE */
+.login-subtitle {
+  @apply text-white/80 text-sm tracking-wide;
+}
+
+
+/* 🔘 GOOGLE BUTTON */
+.google-login-btn {
+  @apply w-full flex items-center justify-center gap-3
+         py-3 rounded-xl font-semibold text-gray-800
+         transition duration-300 shadow-lg
+         cursor-pointer;
+
+  background: white;
+  position: relative;
+  z-index: 30;  /* ✅ ALWAYS CLICKABLE */
+}
+
+.google-login-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+}
+
+
+/* GOOGLE ICON */
+.google-icon {
+  @apply w-5 h-5;
+}
+
+
+/* ✨ FADE UP ANIMATION */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* 🌈 GRADIENT ANIMATION */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+/* 🌌 MAIN BACKGROUND */
+.dashboard-main {
+  @apply min-h-screen flex items-center justify-center px-6 relative overflow-hidden text-white;
+
+  background:
+    radial-gradient(circle at 20% 30%, #6366f1 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, #ec4899 0%, transparent 40%),
+    #0f172a;
+}
+
+/* GRID OVERLAY */
+.dashboard-main::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(circle at center, black, transparent 80%);
+  pointer-events: none;
+}
+
+
+/* 💎 GLASS CARD */
+.dashboard-card {
+  @apply w-full max-w-4xl p-8 md:p-10 space-y-8
+         rounded-[30px] bg-white/5 backdrop-blur-2xl
+         border border-white/10
+         shadow-[0_0_60px_rgba(168,85,247,0.35)]
+         animate-[fadeUp_.6s_ease]
+         relative z-10;
+}
+
+
+/* HEADER */
+.dashboard-header {
+  @apply flex flex-col md:flex-row md:items-center md:justify-between gap-6;
+}
+
+
+/* USER SECTION */
+.dashboard-user {
+  @apply flex items-center gap-4;
+}
+
+
+/* 🌈 AVATAR RING */
+.avatar-ring {
+  @apply p-[2px] rounded-full
+         bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500;
+}
+
+.dashboard-avatar {
+  @apply w-14 h-14 rounded-full object-cover border-2 border-[#0f172a];
+}
+
+
+/* ✨ WELCOME TEXT */
+.dashboard-welcome {
+  @apply text-2xl md:text-3xl font-extrabold leading-tight;
+
+  background: linear-gradient(to right,#fff,#a5b4fc,#f9a8d4,#fff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.dashboard-subtitle {
+  @apply text-white/70 text-sm;
+}
+
+
+/* 🚀 LOGOUT BUTTON */
+.logout-btn {
+  @apply px-6 py-2 rounded-xl font-semibold
+         bg-gradient-to-r from-indigo-500 to-purple-500
+         shadow-lg transition duration-300;
+}
+
+.logout-btn:hover {
+  @apply  hover:scale-105 transition
+         cursor-pointer;
+}
+
+
+/* DIVIDER */
+.dashboard-divider {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+}
+
+
+/* ⏳ LOADING SCREEN */
+.dashboard-loading {
+  @apply min-h-screen flex flex-col items-center justify-center
+         text-white text-xl gap-4;
+}
+
+/* LOADING SPINNER */
+.dashboard-loading::before {
+  content: "";
+  @apply w-12 h-12 rounded-full border-4 border-transparent border-t-indigo-500 border-r-purple-500 animate-spin;
+}
+
+
+/* ✨ FADE UP ANIMATION */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.bookmark-list {
+  @apply mt-6 space-y-4;
+}
+
+.bookmark-item {
+  @apply flex items-center justify-between gap-4
+         bg-white/5 border border-white/10
+         rounded-xl px-4 py-3
+         backdrop-blur-md
+         hover:bg-white/10 hover:scale-[1.01]
+         transition duration-300;
+}
+
+.bookmark-info {
+  @apply flex flex-col gap-1 max-w-[70%];
+}
+
+.bookmark-title {
+  @apply text-white font-semibold text-lg truncate;
+}
+
+.bookmark-url {
+  @apply flex items-center gap-2
+         text-indigo-300 text-sm break-all
+         bg-white/5 px-2 py-1 rounded-md
+         border border-white/10
+         hover:bg-white/10 hover:text-indigo-200;
+}
+
+.copy-btn {
+  @apply px-3 py-1 text-sm text-white rounded-lg
+         bg-gradient-to-r from-indigo-500 to-purple-500
+         hover:scale-105 transition
+         cursor-pointer;
+}
+
+
+
+.delete-btn {
+ @apply px-3 py-1 text-sm text-white rounded-lg
+         bg-gradient-to-r from-indigo-500 to-purple-500
+         hover:scale-105 transition
+         cursor-pointer;
+}
+
+.bookmark-empty {
+  @apply text-center text-white/70 mt-10 text-lg;
+}
+
+}
